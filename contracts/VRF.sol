@@ -48,8 +48,8 @@ contract VRF {
             revert ExpiredRequest();
         }
 
-        (address signer, ) = ECDSA.tryRecover(ECDSA.toEthSignedMessageHash(keccak256(abi.encodePacked(requestId, request.seed))), abi.encodePacked(randomness));
-        if(signer != request.sender) {
+        (address signer, ECDSA.RecoverError error) = ECDSA.tryRecover(ECDSA.toEthSignedMessageHash(keccak256(abi.encodePacked(requestId, request.seed))), abi.encodePacked(randomness));
+        if(error != ECDSA.RecoverError.NoError || signer != request.sender) {
             revert IncorrectRandomness();
         }
 
