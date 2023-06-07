@@ -57,4 +57,11 @@ contract VRF {
 
         IRandomnessReceiver(request.sender).receiveRandomness(randomness);
     }
+
+    function oracleRegistration() public {
+        if(oraclesRegistrationTimestamps[msg.sender] != 0)
+            revert UnautorizedOracle();
+            
+        oraclesRegistrationTimestamps[msg.sender] = block.number;
+    }
 }

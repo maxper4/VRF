@@ -6,6 +6,11 @@ async function main() {
 
     const signer = await ethers.getSigner();
 
+    if(vrf.oraclesRegistrationTimestamps(signer.address) == 0) {
+        console.log("Registering oracle");
+        await vrf.oracleRegistration();
+    }
+
     vrf.on("RandomnessRequest", (requestId, seed) => {
         console.log(`RandomnessRequest: ${requestId} ${seed}`);
 
