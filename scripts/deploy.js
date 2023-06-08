@@ -7,7 +7,12 @@
 const hre = require("hardhat");
 
 async function main() {
-  
+  const VRFFactory = await ethers.getContractFactory("VRF");
+  const vrf = await VRFFactory.deploy();
+
+  await vrf.deployed();
+
+  console.log("VRF deployed to:", vrf.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

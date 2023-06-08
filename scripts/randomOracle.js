@@ -11,12 +11,12 @@ async function main() {
         await vrf.oracleRegistration();
     }
 
-    vrf.on("RandomnessRequest", (requestId, seed) => {
+    vrf.on("OnRandomnessRequest", async(requestId, seed) => {
         console.log(`RandomnessRequest: ${requestId} ${seed}`);
 
-        const randomness = signer.signMessage(ethers.utils.arrayify(ethers.utils.solidityKeccak256(["uint256"], [seed])));
+        const randomness = await signer.signMessage(ethers.utils.arrayify(ethers.utils.solidityKeccak256(["bytes32", "uint256"], [requestId, seed])));
         console.log(`Fulfilling with ${randomness}`);
 
-        vrf.fullfillRandomness(requestId, randomness); 
+        vrf.fulfill(requestId, randomness); 
     });
 }
