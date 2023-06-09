@@ -19,7 +19,7 @@ The script `scripts/deploy.js` can be used with hardhat (`npx hardhat run script
 ### Oracle
 
 You can run an oracle with `npx hardhat run scripts/randomOracle.js`. Warning: these will cost you gas but you can implement in the VRF a way for randomness query to be rewarding for the oracle.
-The way it is currently implemented, only the first oracle can answer to the query. A transaction to an already answered query will fail.
+The way it is currently implemented, only the first oracle can answer to the query. A transaction to an already answered query will revert.
 
 ### Extension
 
